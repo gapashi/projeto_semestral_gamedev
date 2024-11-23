@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/npc/npc_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/NPC/NPC-Old-Shaman-Idle-24x24.png" type="Texture" id=2]
+[ext_resource path="res://scripts/management/npc_2.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.5, 8.5 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Texture:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Texture:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 78, 10 )
+
+[node name="Shaman_villager" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+dialog_text = [ "\"Você conseguiu! Derrotou todos os inimigos que estavam perturbando nossa vila!\"", "\"Estamos muito gratos pelo seu ato de heroísmo!\"", "\"Às vezes, um ato de coragem é tudo o que precisamos para salvar alguém da escuridão.\"", "\"Vá em paz, jovem aventureiro! Siga sua jornada!\"", "FIM DE JOGO" ]
+
+[node name="Texture" parent="." index="0"]
+position = Vector2( 0, 20 )
+texture = ExtResource( 2 )
+hframes = 2
+vframes = 2
+
+[node name="Collision" parent="." index="1"]
+visible = false
+position = Vector2( 0.5, 23.5 )
+shape = SubResource( 1 )
+
+[node name="Animation" parent="." index="2"]
+autoplay = "Idle"
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="Collision" parent="InteretableArea" index="0"]
+visible = false
+position = Vector2( 0, 22 )
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="InteretableArea" to="." method="on_body_entered"]
+[connection signal="body_exited" from="InteretableArea" to="." method="on_body_exited"]

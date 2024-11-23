@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/npc/npc_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/NPC/NPC-Village-Lady-01-Talk-24x24.png" type="Texture" id=2]
+[ext_resource path="res://scripts/management/npc.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 9 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 11, 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16.5, 10 )
+
+[node name="VillageLady" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+dialog_text = [ "\"Ah, até que enfim um herói!\"", "\"Rápido, aventureiro, não temos muito tempo!\"", "\"Aqueles monstros querem destruir nossa vila!\"", "\"Consegue derrotá-los?\"" ]
+special_text = [ "\"Meu herói! Você salvou a vila!\"", "\"Continue lutando! Há mais deles!\"" ]
+
+[node name="Texture" parent="." index="0"]
+texture = ExtResource( 2 )
+hframes = 4
+vframes = 4
+
+[node name="Collision" parent="." index="1"]
+visible = false
+position = Vector2( -1, 3 )
+shape = SubResource( 1 )
+
+[node name="Animation" parent="." index="2"]
+autoplay = "Idle"
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="Collision" parent="InteretableArea" index="0"]
+visible = false
+position = Vector2( -0.5, 2 )
+shape = SubResource( 4 )
+
+[node name="QuestMark" parent="." index="4"]
+position = Vector2( 0, -13 )
+
+[connection signal="body_entered" from="InteretableArea" to="." method="on_body_entered"]
+[connection signal="body_exited" from="InteretableArea" to="." method="on_body_exited"]
