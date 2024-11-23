@@ -20,6 +20,8 @@ Exploração de terras místicas
 
 CRÉDITOS:
 
-Criando um Rpg de Plataforma 2D na Godot 3.5 [Diálogo/Missão/Movimentação/Cenário etc]: 
+Criando um Rpg de Plataforma 2D na Godot 3.5 [Diálogo/Missão/Movimentação/Cenário etc]: https://www.youtube.com/watch?v=-C2h6WsZ1vc
+
 Assets: https://wishforge.itch.io/free-platformer-pixel-art-assets
+
 Fonte: https://datagoblin.itch.io/monogram
